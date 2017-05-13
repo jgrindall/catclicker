@@ -14,9 +14,9 @@ class CatDetail extends React.Component{
         }
         else{
             return <div className="cat-detail">
+                <img onClick={this.onClick.bind(this)} src={"/img/" + this.props.cat.thumbnail}/>
                 <p>{this.props.cat.name}</p>
                 <p>{this.props.cat.numClicks || 0} clicks</p>
-                <img onClick={this.onClick.bind(this)} src={"/img/" + this.props.cat.thumbnail}/>
             </div>;
         }
     }
