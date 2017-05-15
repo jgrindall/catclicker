@@ -34,7 +34,8 @@ class App extends React.Component{
     }
     onClickAdmin(){
         var mode = this.state.adminMode;
-        this.setState({"adminMode":mode === "admin" ? "!admin" : "admin"});
+        var newMode = (mode === "admin" ? "!admin" : "admin");
+        this.setState({"adminMode":newMode});
     }
     onSelect(catId){
         this.setState({"selectedCatId":catId});
@@ -48,11 +49,15 @@ class App extends React.Component{
         return _.findWhere(this.state.cats, {"id":this.state.selectedCatId})
     }
     render(){
+        console.log("renrde app");
         var cat = this.getCat();
+        var admin = (this.state.adminMode === "admin");
         return <div className="main">
             <CatDetail onClickThumb={this.onClickThumb.bind(this)} cat={cat}/>
             <CatAdminControl onClickAdmin={this.onClickAdmin.bind(this)} mode={this.state.adminMode} />
-            <CatAdmin onSave={this.onSave.bind(this)} mode={this.state.adminMode} cat={cat}/>
+            {admin &&
+                <CatAdmin onSave={this.onSave.bind(this)} cat={cat}/>
+            }
             <CatList onSelect={this.onSelect.bind(this)} cat={cat} cats={this.state.cats}/>
         </div>;
     }
